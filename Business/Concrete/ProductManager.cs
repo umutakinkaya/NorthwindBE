@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -15,34 +16,37 @@ namespace Business.Concrete
         {
             _productDao = productDao;
         }
-        public void Add(Product product)
+        public IResult Add(Product product)
         {
             _productDao.Add(product);
+            return new SuccessResult("Product added successfully");
         }
 
-        public void Delete(Product product)
+        public IResult Delete(Product product)
         {
             _productDao.Delete(product);
+            return new SuccessResult("Product deleted successfully");
         }
 
-        public Product GetById(int productId)
+        public IDataResult<Product> GetById(int productId)
         {
-            return _productDao.Get(filter: p => p.ProductId == productId);
+            return new SuccessDataResult<Product>(_productDao.Get(filter: p => p.ProductId == productId));
         }
 
-        public List<Product> GetList()
+        public IDataResult<List<Product>> GetList()
         {
-            return _productDao.GetList().ToList();
+            return new SuccessDataResult<List<Product>>(_productDao.GetList().ToList());
         }
 
-        public List<Product> GetListByCategory(int categoryId)
+        public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
-            return _productDao.GetList(filter: p => p.CategoryId == categoryId).ToList();
+            return new SuccessDataResult<List<Product>>(_productDao.GetList(filter: p => p.CategoryId == categoryId).ToList());
         }
 
-        public void Update(Product product)
+        public IResult Update(Product product)
         {
             _productDao.Update(product);
+            return new SuccessResult("Product updated successfully");
         }
     }
 }
