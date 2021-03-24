@@ -1,41 +1,48 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
+        private IProductDao _productDao;
+        public ProductManager(IProductDao productDao)
+        {
+            _productDao = productDao;
+        }
         public void Add(Product product)
         {
-            throw new NotImplementedException();
+            _productDao.Add(product);
         }
 
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            _productDao.Delete(product);
         }
 
         public Product GetById(int productId)
         {
-            throw new NotImplementedException();
+            return _productDao.Get(filter: p => p.ProductId == productId);
         }
 
         public List<Product> GetList()
         {
-            throw new NotImplementedException();
+            return _productDao.GetList().ToList();
         }
 
         public List<Product> GetListByCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            return _productDao.GetList(filter: p => p.CategoryId == categoryId).ToList();
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            _productDao.Update(product);
         }
     }
 }
