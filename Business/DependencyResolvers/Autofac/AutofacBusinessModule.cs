@@ -15,6 +15,9 @@ namespace Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>();
             builder.RegisterType<EfProductDao>().As<IProductDao>();
+
+            builder.RegisterType<CategoryManager>().As<ICategoryService>();
+            builder.RegisterType<EfCategoryDao>().As<ICategoryDao>();
         }
     }
 }
